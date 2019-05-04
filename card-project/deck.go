@@ -9,7 +9,12 @@ import (
 	"time"
 )
 
-type deck []string
+type deck []card
+
+type card struct {
+	value string
+	class string
+}
 
 func newDeck() deck {
 	cardClasses := []string{"Spades", "Hearts", "Diamonds", "Clubs"}
@@ -19,7 +24,7 @@ func newDeck() deck {
 
 	for _, class := range cardClasses {
 		for _, value := range cardValues {
-			cards = append(cards, value+" of "+class)
+			cards = append(cards, card{class: class, value: value})
 		}
 	}
 	return cards
@@ -58,11 +63,27 @@ func newDeckFromFile(filename string) deck {
 		os.Exit(1)
 	}
 	strSlice := strings.Split(string(bs), ",")
-	return deck(strSlice)
+	cards := []card{}
+	for _, strValue := range strSlice {
+		cardAttr := strings.Split(strValue, " of ")
+		newCard := card{cardAttr[0], cardAttr[1]}
+		cards = append(cards, newCard)
+	}
+
+	return deck(cards)
 }
 
 func (d deck) toString() string {
-	cards := []string(d)
+	cards := []card(d)
 
-	return strings.Join(cards, ",")
+	strArrOfCards := []string{}
+
+	for _, card := range cards {
+		strArrOfCards = append(strArrOfCards, card.value+" of "+card.class)
+	}
+	return strings.Join(strArrOfCards, ",")
+}
+
+func (c card) toString() string {
+	return c.value + " of " + c.class
 }

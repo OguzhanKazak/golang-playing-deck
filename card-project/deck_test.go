@@ -11,11 +11,11 @@ func TestNewDeck(t *testing.T) {
 		t.Errorf("Expected deck lenth of 52, got %d", len(d))
 	}
 
-	if d[0] != "Ace of Spades" {
+	if d[0].toString() != "Ace of Spades" {
 		t.Errorf("Expected first card to be Ace of Spades but found %s", d[0])
 	}
 
-	if d[len(d)-1] != "King of Clubs" {
+	if d[len(d)-1].toString() != "King of Clubs" {
 		t.Errorf("Expected last card to be Clubs of Kings but found %s", d[len(d)-1])
 	}
 }

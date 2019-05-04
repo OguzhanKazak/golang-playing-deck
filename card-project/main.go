@@ -1,10 +1,9 @@
 package main
 
+import "fmt"
+
 func main() {
 
 	cards := newDeck()
-
-	cards.shuffle()
-	cards.print()
-
+	fmt.Print(cards[0].class)
 }
